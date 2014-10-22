@@ -1,0 +1,11 @@
+/* --- Basic Styling --- */
+
+li {
+  list-style-type: none;
+}
+
+.five-day-forecast li{
+  width: 15%;;
+  float: left;
+  margin: 0 2%;
+}
