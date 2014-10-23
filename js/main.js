@@ -3,16 +3,40 @@
  
 document.addEventListener("DOMContentLoaded", function(event) {
 
-  var url = "http://api.wunderground.com/api/ebacd9ddb12797fd/forecast10day/q/37217.json";
+  var urlNash = "http://api.wunderground.com/api/ebacd9ddb12797fd/forecast10day/q/TN/Nashville.json";
+  var $zipcodeSubmit = document.querySelector("#zipcode-submit");
+  var $zipcode = document.querySelector("#weather-zipcode");
+  var defaultURL = "http://api.wunderground.com/api/ebacd9ddb12797fd/forecast10day/q/";
+  var jsonFile = ".json"
+  var $ul = document.querySelector(".five-day-forecast ul");
 
-  getJSONP(url, 'displayWeather');
+  getJSONP(urlNash, 'displayWeather');
+
+  $zipcodeSubmit.addEventListener( 'click',function(event){
+    event.preventDefault();
+    var zipcodeValue = $zipcode.value;
+    var zipcodeURL = defaultURL + zipcodeValue + jsonFile;
+    $ul.innerText = ""; 
+    alert($ul);
+    getJSONP(zipcodeURL, 'displayWeather');
+  });
 
 }); 
 
+
+//EVENT LISTENER
+
+
 //json callback fn
+
 function displayWeather(data){
-  var forecast = data.forecast.txt_forecast.forecastday;
+  var nashForecast = data.forecast.txt_forecast.forecastday; 
   
+  weatherFiveDayLoop(nashForecast);
+}
+
+//function to display weather data 
+function weatherFiveDayLoop(forecast) {
   for(var i=0; i < 10; i += 2){
     var $ul = document.querySelector('.five-day-forecast');
     var $li = document.createElement('li');
