@@ -8,37 +8,53 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var $zipcode = document.querySelector("#weather-zipcode");
   var defaultURL = "http://api.wunderground.com/api/ebacd9ddb12797fd/forecast10day/q/";
   var jsonFile = ".json"
-  var $ul = document.querySelector(".five-day-forecast ul");
+  var $currentLocationButton = document.querySelector("#current-location")
+  var $ul = document.querySelector("#forecast");
 
-  getJSONP(urlNash, 'displayWeather');
+ getJSONP(urlNash, 'displayWeather');
 
   $zipcodeSubmit.addEventListener( 'click',function(event){
+    
     event.preventDefault();
+
     var zipcodeValue = $zipcode.value;
     var zipcodeURL = defaultURL + zipcodeValue + jsonFile;
-    $ul.innerText = ""; 
-    alert($ul);
+    
+    
+    $ul.innerHTML = "";
     getJSONP(zipcodeURL, 'displayWeather');
+  });
+
+  $currentLocationButton.addEventListener('click',function(event){
+    event.preventDefault(); 
+    
+    
+    $ul.innerHTML = "";
+    getLocation();
   });
 
 }); 
 
+//displays weather at current location
+function currentLocationWeather(position){
+  var longitude = position.coords.latitude;
+  var latitude = position.coords.latitude; 
+  var url = "http://api.wunderground.com/api/ebacd9ddb12797fd/forecast10day/q/" + longitude + "," + latitude + ".json";
 
-//EVENT LISTENER
-
+  getJSONP(url,'displayWeather');
+};
 
 //json callback fn
-
 function displayWeather(data){
-  var nashForecast = data.forecast.txt_forecast.forecastday; 
+  var placeForecast = data.forecast.txt_forecast.forecastday; 
   
-  weatherFiveDayLoop(nashForecast);
+  weatherFiveDayLoop(placeForecast);
 }
 
 //function to display weather data 
 function weatherFiveDayLoop(forecast) {
   for(var i=0; i < 10; i += 2){
-    var $ul = document.querySelector('.five-day-forecast');
+    var $ul = document.querySelector('#forecast');
     var $li = document.createElement('li');
     //create img
     var $img = document.createElement('img');
@@ -63,6 +79,15 @@ function weatherFiveDayLoop(forecast) {
     //append li to ul
     $ul.appendChild($li)
   }
+}
+
+//get current location
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(currentLocationWeather, fail);
+}
+
+function fail(){
+  alert("efefef")
 }
 
 //get data through json
