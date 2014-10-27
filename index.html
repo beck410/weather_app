@@ -6,17 +6,21 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <h1>Weather App</h1>
-  <h2>Nashville</h2>
-  <form id="zipcode">
-    <input type="number" id="weather-zipcode" placeholder="zipcode">
-    <input type="submit" id="zipcode-submit" value="Go"/>
-    <input type="submit" id="current-location" value="Get Weather for Current Location" />
-  </form>
-  <section class="five-day-forecast">
-    <ul id="forecast">
-    </ul>
-  </section>
-  <script type="text/javascript" src="js/main.js"></script>
+  <div class="wrapper">
+    <header>
+      <h1>Weather App</h1>
+      <h2 id="city">Nashville</h2>
+     <form id="zipcode">
+       <input type="number" id="weather-zipcode" placeholder="zipcode">
+       <input type="submit" id="zipcode-submit" value="Go"/>
+       <input type="submit" id="current-location" value="Get Weather for Current Location" />
+     </form>
+   </header>
+   <section class="five-day-forecast">
+      <ul id="forecast">
+      </ul>
+    </section>
+  </div> <!-- wrapper -->
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
