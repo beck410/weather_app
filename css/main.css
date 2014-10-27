@@ -1,7 +1,32 @@
+/* --- Clearfix hack ---*/
+.cf:before,
+.cf:after {
+      content: " "; /* 1 */
+          display: table; /* 2 */
+        }
+
+.cf:after {
+  clear: both;
+}
+
+.cf {
+      *zoom: 1;
+    }
+
 /* --- Basic Styling --- */
 
 body {
-  background: #2c3e50;
+  background: #e67e22;
+}
+
+header{
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.five-day-forecast {
+  background: rgba(236, 240, 241, 0.4);
 }
 
 li {
