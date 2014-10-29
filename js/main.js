@@ -1,39 +1,38 @@
 //add function for DOMContentLoaded
-    
- 
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
   var urlNash = "http://api.wunderground.com/api/ebacd9ddb12797fd/geolookup/forecast10day/q/TN/Nashville.json";
-  var $zipcodeSubmit = document.querySelector("#zipcode-submit");
-  var $zipcode = document.querySelector("#weather-zipcode");
+  //var $zipcodeSubmit = document.querySelector("#zipcode-submit");
+  //var $zipcode = document.querySelector("#weather-zipcode");
   var defaultURL = "http://api.wunderground.com/api/ebacd9ddb12797fd/geolookup/forecast10day/q/";
   var jsonFile = ".json"
   var $currentLocationButton = document.querySelector("#current-location")
   var $ul = document.querySelector("#forecast");
- 
+
   getJSONP(urlNash, 'displayWeather');
 
-  $zipcodeSubmit.addEventListener( 'click',function(event){
-    
-    event.preventDefault();
+  //$zipcodeSubmit.addEventListener( 'click',function(event){
+  $('#zipcode-submit').click(function(event){
 
-    var zipcodeValue = $zipcode.value;
-    var zipcodeURL = defaultURL + zipcodeValue + jsonFile;
-    
-    
+    event.preventDefault();
+    var zipcodeURL = defaultURL + $('#weather-zipcode').val() + jsonFile;
+
+
     $ul.innerHTML = "";
     getJSONP(zipcodeURL, 'displayWeather');
-  });
+ });
 
   $currentLocationButton.addEventListener('click',function(event){
-    event.preventDefault(); 
-    
-    
+    event.preventDefault();
+
+
     $ul.innerHTML = "";
     getLocation();
   });
 
-}); 
+});
 
 //change city name
 function cityName(name, state){
@@ -44,7 +43,7 @@ function cityName(name, state){
 //displays weather at current location
 function currentLocationWeather(position){
   var longitude = position.coords.longitude;
-  var latitude = position.coords.latitude; 
+  var latitude = position.coords.latitude;
   var url = "http://api.wunderground.com/api/ebacd9ddb12797fd/geolookup/forecast10day/q/" + latitude + "," + longitude + ".json";
 
   getJSONP(url,'displayWeather');
@@ -55,12 +54,12 @@ function displayWeather(data){
   var placeForecast = data.forecast.txt_forecast.forecastday;
   var city = data.location.city;
   var state = data.location.state;
-  
+
   cityName(city, state);
   weatherFiveDayLoop(placeForecast);
 }
 
-//function to display weather data 
+//function to display weather data
 function weatherFiveDayLoop(forecast) {
   for(var i=0; i < 10; i += 2){
     var $ul = document.querySelector('#forecast');
@@ -79,7 +78,7 @@ function weatherFiveDayLoop(forecast) {
     //append to li
     $li.appendChild($title);
 
-    //create p 
+    //create p
     var $weather = document.createElement('p');
     //add forecast.fcttext to p
     $weather.innerText = forecast[i].fcttext;
@@ -105,4 +104,3 @@ function getJSONP(url, cbName){
   $script.src = url + '?callback=' + cbName;
   document.body.appendChild($script);
 }
-
