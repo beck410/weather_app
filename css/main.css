@@ -1,4 +1,7 @@
 /* --- Clearfix hack ---*/
+* {
+  box-sizing: border-box;
+}
 .cf:before,
 .cf:after {
       content: " "; /* 1 */
@@ -10,32 +13,81 @@
 }
 
 .cf {
-      *zoom: 1;
+      *zoom: 1
     }
 
 /* --- Basic Styling --- */
 
 body {
-  background: #e67e22;
+  background: #27ae60;
+  color: #323A41;
+  font-family: 'Cuprum', sans-serif; 
 }
 
 header{
   margin: 0 auto;
-  text-align: center;
+  text-align: center; 
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 800;
+}
+
+
+h2 {
+  font-size: 1.5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin: 10px;
 }
 
 
 .five-day-forecast {
   background: rgba(236, 240, 241, 0.4);
+  border-radius: 10px;
+  margin: 20px 5%;
+  padding: 1%;
 }
 
-li {
+.five-day-forecast li {
   list-style-type: none;
+  padding: 1% 2%;
 }
 
 /* forecast */
 .five-day-forecast li{
-  width: 15%;;
+  width: 16%;
   float: left;
   margin: 0 2%;
+}
+
+/*buttons */
+input[type="submit"] {
+  border-radius: 20px;
+  background: #3498db;
+  border: none;
+  padding: 10px;
+  font-weight: 800;
+  font-size: 1.2em;
+}
+
+
+input[type="submit"]:hover {
+  padding: 15px;
+}
+
+input#weather-zipcode {
+  border-radius: 20px;
+  padding: 5px; 
+}
+
+input#current-location {
+  margin-left: 2%;
+}
+
+#city {
+  text-align: center;
 }
