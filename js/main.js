@@ -1,5 +1,5 @@
 //add function for DOMContentLoaded
-
+var $ul = $("#forecast");
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //var $zipcode = document.querySelector("#weather-zipcode");
   var defaultURL = "http://api.wunderground.com/api/ebacd9ddb12797fd/geolookup/forecast10day/q/";
   var jsonFile = ".json"
-  var $currentLocationButton = document.querySelector("#current-location")
-  var $ul = document.querySelector("#forecast");
+  //var $currentLocationButton = document.querySelector("#current-location")
 
   getJSONP(urlNash, 'displayWeather');
 
@@ -20,15 +19,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var zipcodeURL = defaultURL + $('#weather-zipcode').val() + jsonFile;
 
 
-    $ul.innerHTML = "";
+    $('#forecast').text("");
     getJSONP(zipcodeURL, 'displayWeather');
  });
 
-  $currentLocationButton.addEventListener('click',function(event){
+  $('#current-location').click(function(event){
     event.preventDefault();
 
-
-    $ul.innerHTML = "";
+    $('#forecast').text = ("");
     getLocation();
   });
 
@@ -36,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 //change city name
 function cityName(name, state){
-  var $cityName = document.querySelector("#city");
-  $cityName.innerHTML = name + ", " + state;
+  var $cityName = $("#city");
+  $cityName.text(name + ", " + state);
 }
 
 //displays weather at current location
@@ -62,30 +60,29 @@ function displayWeather(data){
 //function to display weather data
 function weatherFiveDayLoop(forecast) {
   for(var i=0; i < 10; i += 2){
-    var $ul = document.querySelector('#forecast');
-    var $li = document.createElement('li');
+    var $li = $('<li></li>');
     //create img
-    var $img = document.createElement('img');
+    var $img = $('<img />');
     //add src to image
-    $img.setAttribute('src', forecast[i].icon_url);
+    $img.attr('src', forecast[i].icon_url);
     //append to li
-    $li.appendChild($img);
+    $li.append($img);
 
     //create p
-    var $title = document.createElement('p');
+    var $title = $('<p></p>');
     //add forecast.title to p
-    $title.innerText = forecast[i].title;
+    $title.text(forecast[i].title);
     //append to li
-    $li.appendChild($title);
+    $li.append($title);
 
     //create p
-    var $weather = document.createElement('p');
+    var $weather = $('<td></td>');
     //add forecast.fcttext to p
-    $weather.innerText = forecast[i].fcttext;
+    $weather.text(forecast[i].fcttext);
     //append to li
-    $li.appendChild($weather);
+    $li.append($weather);
     //append li to ul
-    $ul.appendChild($li)
+    $ul.append($li)
   }
 }
 
@@ -100,7 +97,7 @@ function fail(){
 
 //get data through json
 function getJSONP(url, cbName){
-  var $script = document.createElement('script');
-  $script.src = url + '?callback=' + cbName;
-  document.body.appendChild($script);
+  var $script = $('<script></script>');
+  $script.attr('src',url + '?callback=' + cbName);
+  $('body').append($script);
 }
