@@ -14,10 +14,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //$zipcodeSubmit.addEventListener( 'click',function(event){
   $('#zipcode-submit').click(function(event){
-
+    $zipcodeValue = $('#weather-zipcode').val();
     event.preventDefault();
-    var zipcodeURL = defaultURL + $('#weather-zipcode').val() + jsonFile;
-
+    if($zipcodeValue.length === 5 && !isNaN($zipcodeValue)){
+    var zipcodeURL = defaultURL + $zipcodeValue + jsonFile;
+  } else {
+      alert("wrong");
+  }
 
     $('#forecast').text("");
     getJSONP(zipcodeURL, 'displayWeather');
@@ -26,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $('#current-location').click(function(event){
     event.preventDefault();
 
-    $('#forecast').text = ("");
+    $('#forecast').text("");
     getLocation();
   });
 
