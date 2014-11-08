@@ -20,8 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var zipcodeURL = defaultURL + $zipcodeValue + jsonFile;
   } else {
       alert("wrong");
-  }
-
+  };
     $('#forecast').text("");
     getJSONP(zipcodeURL, 'displayWeather');
  });
